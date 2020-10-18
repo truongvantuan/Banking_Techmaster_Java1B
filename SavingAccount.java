@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class SavingAccount implements FinalSettlement {
 
-    private static final double[] SAVING_INTEREST_RATE = {3.5, 4.8, 5.3, 5.5, 6.4};
-    private final double MINIMUM_START_BALANCE = 5_000_000;
+    private static final double[] SAVING_INTEREST_RATE = {3.5, 4.8, 5.3, 5.5, 6.4}; // Mảng lưu lãi suất tiền gửi tiết kiệm tương ứng kỳ hạn 0 kỳ hạn,3,6,9,12 tháng
+    private final double MINIMUM_START_BALANCE = 5_000_000; // Số tiền nhỏ nhất khi bắt đầu tiết kiệm
     private Date dateCreated;
     private double startBalance;
     private double balance;
@@ -22,13 +22,16 @@ public class SavingAccount implements FinalSettlement {
     }
 
     public SavingAccount(double startBalance, double regularSavingAmount, int savingTerm, double annualInterestRate) {
-        this.dateCreated = BankMethods.parseDate("16:20:15  17-04-2020");
+        this.dateCreated = BankMethods.parseDate("16:20:15  17-04-2020"); // Định ngay gửi tiết kiệm trong quá khứ để thực hiện tất toán tài khoản
         this.startBalance = startBalance;
         this.savingTerm = savingTerm;
         this.regularSavingAmount = regularSavingAmount;
         this.annualInterestRate = annualInterestRate;
     }
-
+    
+    /**
+     * Lấy ra lãi suất tương ứng với kỳ hạn
+     */
     public static double getSavingInterestRate(int month) {
         return SAVING_INTEREST_RATE[month / 3];
     }
@@ -108,7 +111,7 @@ public class SavingAccount implements FinalSettlement {
     }
 
     /**
-     * I thông tin tài khoản tiết kiệm
+     * In thông tin tài khoản tiết kiệm
      */
     public void printSavingAccount() {
         System.out.println();
@@ -119,22 +122,28 @@ public class SavingAccount implements FinalSettlement {
         System.out.println("-------------------------------------------");
 
     }
-
+    
+    /**
+     * Tính tiền lãi nhận được tại tháng truyền vào
+     */
     public double getMonthInterest(int month) {
         double monthInterest = 0;
         double totalDeposits = 0;
         for (int i = 1; i <= month; i++) {
-            if (i == 1) {
+            if (i == 1) { // Gửi tiết kiệm tích lũy nên tháng thứ 1 chưa có tiền góp vào hàng tháng
                 monthInterest = getStartBalance() * getAnnualInterestRate() / 1200;
                 totalDeposits = getStartBalance() + monthInterest;
             } else {
-                totalDeposits += getRegularSavingAmount();
+                totalDeposits += getRegularSavingAmount(); // Công vào tiền góp mỗi tháng từ tháng thứ 2
                 monthInterest = totalDeposits * getAnnualInterestRate() / 1200;
             }
         }
         return monthInterest;
     }
-
+    
+    /**
+     * Tính tổng tiền nhận được tại tháng truyền vào
+     */
     public double getTotalDeposit(int month) {
         double monthInterest = 0;
         double totalDeposits = 0;
@@ -150,7 +159,10 @@ public class SavingAccount implements FinalSettlement {
         }
         return totalDeposits;
     }
-
+    
+    /**
+     * Tính tổng tiền nhận được khi tất toán trước hạn, lúc này lãi sẽ tính lãi gửi không kỳ hạn 
+     */
     public double getTotalDeposit(int month, double interestRate) {
         double monthInterest = 0;
         double totalDeposits = 0;
@@ -166,7 +178,10 @@ public class SavingAccount implements FinalSettlement {
         }
         return totalDeposits;
     }
-
+    
+    /**
+     * Tính tiên nhận được theo ngày, trường hợp tất toán tiền gửi trước hạn có lẻ ngày.
+     */
     public double getRemainDeposit(int day) {
         return day * getTotalDeposit(BankMethods.getTimeElapsed(getDateCreated(), new Date())[1] + 1) / 30;
     }

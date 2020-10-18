@@ -12,8 +12,7 @@ public class Transaction {
     private String description;
 
     /**
-     * Constructor a Transaction with specified
-     * date, type, balance and description
+     * Constructor tạo giao dịch ngân hàng
      */
     public Transaction(String type, double amount, double balance, String description) {
         this.date = new Date();
@@ -22,7 +21,10 @@ public class Transaction {
         this.balance = balance;
         this.description = description;
     }
-
+    
+    /**
+     * In ra giao dịch ngân hàng
+     */
     public void printTransaction() {
         System.out.printf("%20s%15s%15.2f%15.2f%35s\n",
                 BankMethods.convertDetailDate(this.date),

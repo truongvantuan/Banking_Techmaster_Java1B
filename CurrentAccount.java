@@ -7,9 +7,9 @@ public class CurrentAccount extends Account {
 
     private final double MINIMUM_BALANCE = 50_000;
     private final double FEE = 1100;
-    private ArrayList<Transaction> transactions;
-    private ArrayList<SavingAccount> savingAccounts;
-    private ArrayList<LoanAccount> loanAccounts;
+    private ArrayList<Transaction> transactions; // ArrayList lưu lại các giao dịch ngân hàng
+    private ArrayList<SavingAccount> savingAccounts; // ArrayList lưu tài khoản tiền gửi tiết kiệm khi được tạo
+    private ArrayList<LoanAccount> loanAccounts; // ArrayList lưu lại tài khoản tiên vay khi được tạo
     private double balance;
     private double annualInterestRate;
 
@@ -27,7 +27,10 @@ public class CurrentAccount extends Account {
         this.savingAccounts = new ArrayList<>();
         this.loanAccounts = new ArrayList<>();
     }
-
+    
+    /**
+     * Hàm tạo mới tài khoản với thông tin nhập vào
+     */
     public static CurrentAccount CreateAccount() {
         Scanner input = new Scanner(System.in);
         System.out.print("Họ và Tên: ");
@@ -36,7 +39,10 @@ public class CurrentAccount extends Account {
         String id = input.nextLine();
         return new CurrentAccount(name, id);
     }
-
+    
+    /**
+     * Hàm tạo tài khoản tiề gửi với thông tin nhập vào
+     */
     public SavingAccount createSavingAccount() {
         Scanner input = new Scanner(System.in);
         System.out.print("Số tiền muốn gửi tiết kiệm: ");
@@ -48,7 +54,9 @@ public class CurrentAccount extends Account {
         double regularSavingAmount = input.nextDouble();
         return new SavingAccount(startBalance, regularSavingAmount, savingTerm, annualInterestRate);
     }
-
+    /**
+     * Hàm tạo tài khoản tiền vay với thông tin nhập vào
+     */
     public LoanAccount createLoanAccount() {
         LoanAccount loanAccount;
         Scanner input = new Scanner(System.in);
@@ -60,7 +68,10 @@ public class CurrentAccount extends Account {
         double loanInterestRate = LoanAccount.getLoanInterestRate(loanTerm);
         return new LoanAccount(loanTerm, loanAmount, loanInterestRate);
     }
-
+    
+    /**
+     * Hàm nhân đôi số dư tài khoản, dùng trong định giá tài sản khi thực hiện vay tiền 
+     */
     public double getMaxLoanAmount() {
         return getBalance() * 2;
     }
@@ -84,7 +95,10 @@ public class CurrentAccount extends Account {
     public void setSavingAccounts(ArrayList<SavingAccount> savingAccounts) {
         this.savingAccounts = savingAccounts;
     }
-
+    
+    /**
+     * Kiểm tra xem có tài khoản tiền vay nào không? 
+     */
     public String isActiveLA() {
         if (loanAccounts.isEmpty()) {
             return "Không";
@@ -92,7 +106,10 @@ public class CurrentAccount extends Account {
             return "Có";
         }
     }
-
+    
+    /**
+     * Kiểm tra xem có tài khoản tiền gửi tiết kiệm nào không 
+     */
     public String isActiveSA() {
         if (savingAccounts.isEmpty()) {
             return "Không";
@@ -100,7 +117,10 @@ public class CurrentAccount extends Account {
             return "Có";
         }
     }
-
+    
+    /**
+     * Hàm in ra thông tin chi tiết của tài khoản ngân hàng (Current Account)
+     */
     public void printCard() {
         System.out.println("---------------------------------------");
         System.out.println("          Thông Tin Tài Khoản          ");
@@ -142,7 +162,11 @@ public class CurrentAccount extends Account {
     public double getMINIMUM_BALANCE() {
         return MINIMUM_BALANCE;
     }
-
+    
+    /**
+     * Hàm nạp tiền với số tiền nhập vào từ bàn phím 
+     * Lưu lại giao dịch vào ArrayList transactions
+     */
     public void deposit() {
         Scanner input = new Scanner(System.in);
         System.out.print("Nhập vào số tiền cần nạp: ");
@@ -151,13 +175,21 @@ public class CurrentAccount extends Account {
         transactions.add(new Transaction("Nạp tiền", amount, getBalance(),
                 "Nạp tiền vào tài khoản"));
     }
-
+    
+    /**
+     * Hàm overloading nạp tiền vào tài khoản khi tất toán tài khoản tiền gửi tiết kiệm
+     * Lưu lại giao dịch tất toán vào ArrayList transactions
+     */
     public void deposit(double amount) {
         setBalance(getBalance() + amount);
         transactions.add(new Transaction("Tất toán", amount, getBalance(),
                 "Tất toán tài khoản tiết kiệm"));
     }
-
+    
+    /**
+     * Hàm overloading rút tiền từ tài khoản khi tất toán tài khoản tiền vay
+     * Lưu lại giao dịch tất toán vào ArrayList transactions
+     */
     public void withdraw(double amount) {
         if (getBalance() - amount - FEE > MINIMUM_BALANCE) {
             setBalance(getBalance() - amount - FEE);
@@ -167,7 +199,10 @@ public class CurrentAccount extends Account {
             throw new IllegalArgumentException("Không đủ tiền!");
         }
     }
-
+    
+    /**
+     * Hàm rút tiền với số tiền nhập vào
+     */
     public void withdraw() {
         Scanner input = new Scanner(System.in);
         System.out.print("Nhập vào số tiền cần rút: ");

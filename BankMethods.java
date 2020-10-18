@@ -9,7 +9,9 @@ public class BankMethods {
 
 
     /**
-     * Hàm tính ngày, tháng giữ 2 khoảng thời gian
+     * Hàm tính ngày, tháng giữ 2 khoảng thời dateCreated và now
+     * trả về mảng int[2] elapsedTime trong đó elapsedTime[0] = ngày, elapsedTime[1] = tháng
+     * Sử dụng để tính tiền khi tất toán tài khoản ngân hàng
      */
     public static int[] getTimeElapsed(Date dateCreated, Date now) {
         int[] elapsedTime = new int[2];
@@ -24,7 +26,7 @@ public class BankMethods {
 
     /**
      * Sử dụng Math.random() tạo ngẫu nhiên chuỗi 13 số
-     * định dạng 1681000****** làm số thẻ ngân hàng
+     * định dạng 1681000****** (cho giống format ngân hàng) làm số thẻ ngân hàng
      */
     public static String generateAccNumber() {
         StringBuilder str = new StringBuilder("1681000");
@@ -33,7 +35,9 @@ public class BankMethods {
         }
         return str.toString();
     }
-
+    /**
+     * Hàm in ra  đầu bảng (head table) lịch sử giao dịch
+     */
     public static void printTransactionActivityHead() {
         System.out.printf("%65s", "-------------------------------\n");
         System.out.printf("%58s", "Lịch sử giao dịch\n");
@@ -41,12 +45,18 @@ public class BankMethods {
         System.out.printf("%20s%15s%15s%15s%35s\n", "Ngày        ", "Loại  ", "Biến động ", "Số dư    ", "Nội dung           ");
     }
 
+    /**
+     * Hàm in ra  đầu bảng (head table) thông tin TK tiết kiệm
+     */
     public static void printSavingAccountStatementHead() {
         System.out.println("-------------------------------------------");
         System.out.println("        Thông Tin Tài Khoản Tiết Kiệm      ");
         System.out.println("-------------------------------------------");
     }
 
+    /**
+     * Hàm in ra menu chính cho chọn chức năng
+     */
     public static void printMainMenu() {
         System.out.println("\n");
         System.out.println("                                          MAIN MENU                                      ");
@@ -61,13 +71,20 @@ public class BankMethods {
         System.out.print("Chọn chức năng: ");
     }
 
-    /**  */
+    /**
+     * Hàm trả về định dạng thời gian dd-MM-yyy từ object Date
+     * dùng hiển thị ngày tạo tài khoản
+     */
     public static String convertDate(java.util.Date date) {
         String format = "dd-MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.format(date);
     }
-
+    
+    /**
+     * Hàm trả về định dạng thời gian chi tiết HH:mm:ss dd-MM-yyy từ object Date
+     * dùng hiển thị chi tiết ngày giờ thực hiện giao dịch
+     */
     public static String convertDetailDate(java.util.Date date) {
         String format = "HH:mm:ss dd-MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
@@ -75,7 +92,8 @@ public class BankMethods {
     }
 
     /**
-     * Tạo Object thời gian mong muốn cho trước, dùng test code
+     * Tạo instance Date mong muốn từ String thời gian cho trước
+     * dùng định này tạo tài khoản trong quá khứ để test chức năng tất toán
      */
     public static Date parseDate(String date) {
         try {
@@ -84,7 +102,10 @@ public class BankMethods {
             return null;
         }
     }
-
+    
+    /**
+     * Hàm tạm dừng màn hình console để xem thông tin
+     */
     public static void pressEnter() {
         System.out.print("Press \"ENTER\" to continue...");
         Scanner input = new Scanner(System.in);

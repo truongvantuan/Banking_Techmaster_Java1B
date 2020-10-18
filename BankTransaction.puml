@@ -12,7 +12,6 @@ interface finalSettlement {
 +{abstract}finalSettlement(): double
 }
 
-
 class Account {
 -id: String
 -CURRENCY: "VND"
@@ -74,11 +73,21 @@ annualInterestRate: double)
 }
 
 class LoanAccount {
+-{static}LOAN_INTEREST_RATE: double[]
 -loanAmount: double
--loanTerm: int
 -loanTerm: int
 -loanInterestRate:
 -dateCreated: Date
++LoanAccount()
++LoanAccount(loanTerm: int,
+loanAmount: double,
+loanInterestRate: double)
++getMonthlyPayment(): double
++getTotalPayment(): double
++getTotalPayment(month: int): double
++isMatchLoanTerm(): boolean
++printLoanAccount(): Void
++LoanCalculator(): Void
 +finalSettlement(): double
 
 }
@@ -91,6 +100,10 @@ class Transaction {
 -description: String
 +Transaction()
 +printTransactions(): Void
++getDate(): Date
++getType(): String
++getAmount(): double
++getDescription(): String
 }
 
 class BankMethods {

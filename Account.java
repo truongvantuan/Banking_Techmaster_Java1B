@@ -22,6 +22,9 @@ public class Account {
         this.dateCreated = BankMethods.parseDate("16:20:15 15-5-2020");
     }
 
+    /**
+     * Constructor tạo tài khoản với tên và số CMND
+     */
     public Account(String customerName, String id) {
         this.id = id;
         this.customerName = customerName.toUpperCase();
