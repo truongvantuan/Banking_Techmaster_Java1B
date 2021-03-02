@@ -22,6 +22,7 @@ mvn compiler:compile
 
 ![show info](images/2.png)
 - Lịch sử giao dịch: xem thông tin thay đổi tài khoản, tiền nạp/rút, các giao dịch làm biến động số dư.
+
 ![log](images/3.png)
 2. Mở tài khoản tiết kiệm
 
