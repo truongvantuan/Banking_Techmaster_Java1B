@@ -1,0 +1,120 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class SavingAccount implements finalSettlement
+class LoanAccount implements finalSettlement
+class CurrentAccount extends Account
+CurrentAccount "1" - "0..*" SavingAccount
+CurrentAccount "1" - "1" LoanAccount
+CurrentAccount "1" - "0..*" Transaction
+
+interface finalSettlement {
++{abstract}finalSettlement(): double
+}
+
+class Account {
+-id: String
+-CURRENCY: "VND"
+-customerName: String
+-accountNumber: String
+-dateCreated: Date
++Account():
++Account(customerName: String, id: String)
++getId(): String
++setId(id: String): Void
++getCustomerName(): String
++setCustomerName(customerName: String): Void
++getDateCreated(): Date
++setDateCreated(dateCreated: Date): Void
+}
+
+
+class CurrentAccount {
+-MINIMUM_BALANCE: double
+-FEE: double
+-ArrayList<> transactions: Transaction
+-ArrayList<> savingAccounts: SavingAccount
+-ArrayList<> loanAccounts: LoanAccount
+-balance: double
+-annualInterestRate: double
++CreateAccount(): CurrentAccount
++createSavingAccount(): SavingAccount
++createLoanAccount(): LoanAccount
++deposit(): Void
++withdraw(): Void
++printCard(): Void
++isActiveLA(): String
++isActiveVA(): String
+
+}
+
+class SavingAccount {
+-MINIMUM_START_BALANCE: double
+-startBalance: double
+-dateCreated: Date
+-balance: double
+-savingTerm: int
+-regularSavingAmount: double
+-annualInterestRate: double
++SavingAccount()
++SavingAccount(startBalance: double,
+regularSavingAmount: double,
+savingTerm: int,
+annualInterestRate: double)
++{static}getSavingInterestRate(month: int): double
++savingCalculator(): Void
++printSavingAccount(): Void
++getMonthInterest(month: int): double
++getTotalDeposit(month: int): double
++getTotalDeposit(month: int, interestRate: double): double
++getRemainDeposit(day: int): double
++isMatchSavingTerm(): boolean
++finalSettlement(): double
+}
+
+class LoanAccount {
+-{static}LOAN_INTEREST_RATE: double[]
+-loanAmount: double
+-loanTerm: int
+-loanInterestRate:
+-dateCreated: Date
++LoanAccount()
++LoanAccount(loanTerm: int,
+loanAmount: double,
+loanInterestRate: double)
++getMonthlyPayment(): double
++getTotalPayment(): double
++getTotalPayment(month: int): double
++isMatchLoanTerm(): boolean
++printLoanAccount(): Void
++LoanCalculator(): Void
++finalSettlement(): double
+
+}
+
+class Transaction {
+-date: Date
+-type: String
+-amount: double
+-balance: double
+-description: String
++Transaction()
++printTransactions(): Void
++getDate(): Date
++getType(): String
++getAmount(): double
++getDescription(): String
+}
+
+class BankMethods {
++{static}getTimeElapsed(dateCreated: Date, now: Date): Int[]
++{static}generateAccNumber(): String
++{static}printMainMenu(): Void
++{static}printTransactionActivityHead(): Void
++{static}printSavingAccountStatementHead(): Void
++{static}convertDate(date: Date): String
++{static}convertDetailDate(date: Date): String
++{static}parseDate(date: String): Date
++{static}pressEnter(): Void
+}
+@enduml
