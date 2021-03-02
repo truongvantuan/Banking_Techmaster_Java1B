@@ -1,7 +1,7 @@
 # Bài kiểm tra kết thúc module Java Core
 Đề bài: Thiết kế ứng dụng ngân hàng mô phỏng các chức năng tạo tài khoản, nạp/rút tiền, tài khoản gửi/vay, tất toán khoản gửi/vay, ...
 
-Diagram mô tả cấu trúc ứng dụng
+Diagram mô tả cấu trúc ứng dụng:
 ![diagram](out/BankTransaction_Diagram/BankTransaction_Diagram.png)
 
 # Plugins - Tools sử dụng
