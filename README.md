@@ -26,4 +26,5 @@ mvn compiler:compile
 2. Mở tài khoản tiết kiệm
 
 Mỗi tài khoản có thể mở nhiều tài khoản tiếp kiệm. Với tùy chọn số tiền gửi, kỳ hạn gửi và số tiền gửi góp vào hàng tháng tiếp theo.
+
 ![saving-account](images/4.png)
