@@ -7,7 +7,7 @@ public class Main extends BankMethods {
 
     public static void main(String[] args) {
         int selector;
-        int numberOfAccounts = 0;
+        // int numberOfAccounts = 0;
         ArrayList<CurrentAccount> currentAccounts = new ArrayList<CurrentAccount>();
         do {
             BankMethods.printMainMenu();
